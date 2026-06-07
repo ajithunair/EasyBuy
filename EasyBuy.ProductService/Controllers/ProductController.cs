@@ -15,4 +15,15 @@ public class ProductController(ProductDbContext dbContext) : Controller
         var products = await dbContext.Products.ToListAsync();
         return Ok(products);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProductModel>> GetProduct(int id)
+    {
+        var product = await dbContext.Products.FindAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        return Ok(product);
+    }
 }

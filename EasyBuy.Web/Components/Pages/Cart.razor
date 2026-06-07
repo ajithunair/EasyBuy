@@ -1,0 +1,45 @@
+@page "/cart/{ProductId}"
+@using EasyBuy.Model
+@inject HttpClient http
+@inject IJSRuntime JsRuntime
+<h3>Cart</h3>
+
+<form>
+    <div class="form-group mb-4">
+        <label>Customer Name</label>
+        <input type="text" class="form-control" @bind="order.CustomerName"/>
+    </div>
+    <div class="form-group mb-4">
+        <label>Product Name</label>
+        <input type="text" class="form-control" @bind="product.Name"/>
+    </div>
+    <div class="form-group mb-4">
+        <label>Quantity</label>
+        <input type="text" class="form-control" @bind="order.Quantity"/>
+    </div>
+    <button type="button" class="btn btn-primary" @onclick="CreateOrder">Create Order</button>
+</form>
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    public OrderModel order = new OrderModel();
+    public ProductModel product = new ProductModel();
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        order.ProductId = ProductId;
+        product= await http.GetFromJsonAsync<ProductModel>($"http://localhost:5088/api/product/{ProductId}");
+        await base.OnParametersSetAsync();
+    }
+
+    private async Task CreateOrder()
+    {
+        var response = await http.PostAsJsonAsync("http://localhost:5123/api/order", order);
+        if (response.IsSuccessStatusCode)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Order Creation Successful");
+        }
+    }
+
+}

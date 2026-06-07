@@ -15,4 +15,13 @@ public class OrderController(OrderDbContext dbContext) : Controller
         var orders = await dbContext.Orders.ToListAsync();
         return Ok(orders);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<OrderModel>> CreateOrder(OrderModel order)
+    {
+        order.OrderDate = DateTime.UtcNow;
+        dbContext.Orders.Add(order);
+        await dbContext.SaveChangesAsync();
+        return Ok(order);
+    }
 }
