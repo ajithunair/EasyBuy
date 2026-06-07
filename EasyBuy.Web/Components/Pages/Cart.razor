@@ -1,7 +1,8 @@
-@page "/cart/{ProductId}"
+@page "/cart/{ProductId:int}"
 @using EasyBuy.Model
 @inject HttpClient http
 @inject IJSRuntime JsRuntime
+@rendermode InteractiveServer
 <h3>Cart</h3>
 
 <form>
@@ -29,7 +30,7 @@
     protected override async Task OnParametersSetAsync()
     {
         order.ProductId = ProductId;
-        product= await http.GetFromJsonAsync<ProductModel>($"http://localhost:5088/api/product/{ProductId}");
+        product = await http.GetFromJsonAsync<ProductModel>($"http://localhost:5088/api/product/{ProductId}") ?? new ProductModel();
         await base.OnParametersSetAsync();
     }
 
