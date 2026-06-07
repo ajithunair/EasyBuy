@@ -1,0 +1,17 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.4.2">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>4740150c-8f6a-4906-aeb5-07c021de1f36</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\EasyBuy.OrderService\EasyBuy.OrderService.csproj" />
+      <ProjectReference Include="..\EasyBuy.ProductService\EasyBuy.ProductService.csproj" />
+      <ProjectReference Include="..\EasyBuy.Web\EasyBuy.Web.csproj" />
+    </ItemGroup>
+
+</Project>
