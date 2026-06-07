@@ -1,3 +1,6 @@
+using EasyBuy.ProductService.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace EasyBuy.ProductService;
 
 public class Program
@@ -12,6 +15,11 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddDbContext<ProductDbContext>(options =>
+        {
+            options.UseNpgsql(builder.Configuration.GetConnectionString("ProductDb"));
+        });
 
         var app = builder.Build();
 

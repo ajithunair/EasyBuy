@@ -1,3 +1,6 @@
+using EasyBuy.OrderService.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace EasyBuy.OrderService;
 
 public class Program
@@ -13,6 +16,10 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddDbContext<OrderDbContext>(options =>
+        {
+            options.UseNpgsql(builder.Configuration.GetConnectionString("OrderDb"));
+        });
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
