@@ -1,0 +1,31 @@
+@page "/products"
+@using EasyBuy.Model
+@inject HttpClient http
+<h3>ProductList</h3>
+
+<div class="row">
+    @foreach (var product in products)
+    {
+        <div class="col-md-6">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">Price: @product.Price</p>
+                    <p class="card-text">Quantity: @product.Quantity</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<ProductModel> products = new List<ProductModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await http.GetFromJsonAsync<List<ProductModel>>("https://localhost:7033/api/product");
+        await base.OnInitializedAsync();
+    }
+
+}
