@@ -1,4 +1,5 @@
 using EasyBuy.ProductService.Data;
+using EasyBuy.ProductService.Kafka;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyBuy.ProductService;
@@ -20,7 +21,9 @@ public class Program
         {
             options.UseNpgsql(builder.Configuration.GetConnectionString("ProductDb"));
         });
-
+        
+        builder.Services.AddHostedService<KafkaConsumer>();
+        
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())

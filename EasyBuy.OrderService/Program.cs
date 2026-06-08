@@ -1,4 +1,5 @@
 using EasyBuy.OrderService.Data;
+using EasyBuy.OrderService.Kafka;
 using Microsoft.EntityFrameworkCore;
 
 namespace EasyBuy.OrderService;
@@ -20,6 +21,7 @@ public class Program
         {
             options.UseNpgsql(builder.Configuration.GetConnectionString("OrderDb"));
         });
+        builder.Services.AddScoped<IKafkaProducer, KafkaProducer>();
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
