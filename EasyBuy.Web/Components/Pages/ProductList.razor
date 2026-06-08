@@ -4,11 +4,11 @@
 @rendermode InteractiveServer
 <h3>ProductList</h3>
 
-<div class="row">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-3">
     @foreach (var product in products)
     {
-        <div class="col-md-6">
-            <div class="card" style="width: 18rem;">
+        <div class="col">
+            <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">@product.Name</h5>
                     <p class="card-text">Price: @product.Price</p>
